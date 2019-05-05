@@ -55,13 +55,10 @@ class AgeCalculator extends Command
         $optionValue = $input->getOption('adult');
         $age = $this->userAge->getAge($birthday);
 
-        $section1 = $output->section();
-        $section2 = $output->section();
-
         $io = new SymfonyStyle($input, $output);
         $io->newLine();
 
-        $section1->writeln('<fg=yellow>! [NOTE] I am '. $age .' years old</>');
+        $io->note('I am '. $age .' years old');
 
         $io->newLine();
 
@@ -69,11 +66,11 @@ class AgeCalculator extends Command
         {
             if ($this->userAge->isAdult($age))
             {
-                $section2->writeln('<fg=black;bg=green> [OK] Am I an adult ?  ----  YES !!</>');
+                $io->success('Am I an adult ?  ----  YES !!');
 
             }else{
 
-                $section2->writeln('<fg=white;bg=red> [WARNING] Am I an adult ?  ----  NO !!!</>');
+                $io->warning('Am I an adult ?  ----  NO !!!');
 
 
             }
