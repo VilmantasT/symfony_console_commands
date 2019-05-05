@@ -75,8 +75,8 @@ class AgeCalculator extends Command
 
             }
 
-
+            $io->newLine();
         }
-        $io->newLine();
+
     }
 }
