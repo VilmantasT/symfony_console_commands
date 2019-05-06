@@ -4,7 +4,7 @@
 namespace App\Command;
 
 
-use App\UserAge\UserAgeCalculator;
+use App\UserAge\AgeManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -13,15 +13,15 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 
-class AgeCalculator extends Command
+class AgeCalculatorCommand extends Command
 {
     protected static $defaultName = 'app:age:calculator';
 
-    private $userAge;
+    private $ageManager;
 
-    public function __construct(UserAgeCalculator $userAge)
+    public function __construct(AgeManager $ageManager)
     {
-        $this->userAge = $userAge;
+        $this->ageManager = $ageManager;
 
         parent::__construct();
     }
@@ -29,7 +29,7 @@ class AgeCalculator extends Command
     protected function configure()
     {
         $this->setDescription('Calculates age by given birthday')
-            ->setHelp('This command calculates user age by given birthday. If option --adult setted writes if user 
+            ->setHelp('This command calculates user age by given birthday. If option --adult setted writes if user
             adult');
 
         $this
@@ -53,7 +53,7 @@ class AgeCalculator extends Command
 
         $birthday = $input->getArgument('birthday');
         $optionValue = $input->getOption('adult');
-        $age = $this->userAge->getAge($birthday);
+        $age = $this->ageManager->getUserAge($birthday);
 
         $io = new SymfonyStyle($input, $output);
         $io->newLine();
@@ -64,7 +64,7 @@ class AgeCalculator extends Command
 
         if ($optionValue !== false)
         {
-            if ($this->userAge->isAdult($age))
+            if ($this->ageManager->isUserAdult($age))
             {
                 $io->success('Am I an adult ?  ----  YES !!');
 

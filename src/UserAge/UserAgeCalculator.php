@@ -1,13 +1,8 @@
 <?php
 
-
 namespace App\UserAge;
 
 use DateTime;
-
-
-
-
 
 class UserAgeCalculator
 {
@@ -22,8 +17,5 @@ class UserAgeCalculator
         return $age;
     }
 
-    public function isAdult($age)
-    {
-        return $age >= 18;
-    }
+
 }
